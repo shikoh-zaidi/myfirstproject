@@ -1,6 +1,6 @@
 pipeline {
 
-    agent { label 'netligent' }
+    agent { label '{$LABEL_NAME}' }
  
     stages {
 
