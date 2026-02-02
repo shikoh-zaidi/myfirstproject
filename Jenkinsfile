@@ -37,4 +37,10 @@ pipeline {
             }
         }
     }
+    post {
+        emailext { body: '''This mail is regarding failed build ${BUILD_NUMBER}', 
+            subject: 'Buils Failed ${BUILD_NUMBER}''', 
+            to: 'shikoh.zaidi@live.com'
+                 }
+    }
 }
