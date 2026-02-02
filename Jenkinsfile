@@ -1,6 +1,11 @@
 pipeline {
 
     agent { label "${LABEL_NAME}" }
+    environment  {
+        IMAGE_NAME = "netli"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        DOCKER_IMAGE= "${IMAGE_NANE}:${IMAGE_TAG}"
+    }
  
     stages {
 
@@ -18,7 +23,7 @@ pipeline {
 
             steps {
 
-                sh 'docker build -t simpleapp:1 .'
+                sh 'docker build -t ${DOCKER_IMAGE} .'
 
             }
 
@@ -31,7 +36,7 @@ pipeline {
                 sh '''
                 docker stop c1 || true
                 docker rm c1 || true
-                docker run -d -p 80:80 --name c1 simpleapp:1 --restart always
+                docker run -d -p 80:80 --name --restart always ${DOCKER_IMAGE}
                 '''
 
             }
