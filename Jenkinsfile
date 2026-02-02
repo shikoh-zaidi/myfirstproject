@@ -37,10 +37,27 @@ pipeline {
             }
         }
     }
+
     post {
-        emailext ( body: '''This mail is regarding failed build ${BUILD_NUMBER}', 
-            subject: 'Buils Failed ${BUILD_NUMBER}''', 
-            to: 'shikoh.zaidi@live.com'
-                 )
+        failure {
+            emailext(
+                subject: "Build Failed: ${JOB_NAME} #${BUILD_NUMBER}",
+                body: """
+Hello Team,
+
+The Jenkins build has failed.
+
+Job Name : ${JOB_NAME}
+Build No : ${BUILD_NUMBER}
+Build URL: ${BUILD_URL}
+
+Please check the logs for details.
+
+Regards,
+Jenkins
+""",
+                to: 'shikoh.zaidi@live.com'
+            )
+        }
     }
 }
