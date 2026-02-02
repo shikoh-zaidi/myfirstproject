@@ -39,6 +39,26 @@ pipeline {
     }
 
     post {
+        success {
+            emailext(
+                subject: "Build Success: ${JOB_NAME} #${BUILD_NUMBER}",
+                body: """
+Hello Team,
+
+The Jenkins build completed successfully.
+
+Job Name : ${JOB_NAME}
+Build No : ${BUILD_NUMBER}
+Docker Image : ${DOCKER_IMAGE}
+Build URL: ${BUILD_URL}
+
+Regards,
+Jenkins
+""",
+                to: 'shikoh.zaidi@live.com'
+            )
+        }
+
         failure {
             emailext(
                 subject: "Build Failed: ${JOB_NAME} #${BUILD_NUMBER}",
