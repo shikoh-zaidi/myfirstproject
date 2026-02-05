@@ -40,6 +40,7 @@ pipeline {
 
     post {
         success {
+            
             archiveArtifacts artifacts: '*.tar'
             emailext(
                 subject: "Build Success: ${JOB_NAME} #${BUILD_NUMBER}",
